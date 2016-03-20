@@ -42,20 +42,9 @@ Template.body.events({
   }
 });
 
-Template.resolution.events({
-  'click .toggle-checked': function() {
-    // updating the state - if clicked it will be the opposite of what it was before
-    Resolutions.update(this._id, {$set: {checked: !this.checked}});
-  },
-  'click .delete': function() {
-    Resolutions.remove(this._id);
-  }
-});
-
 Accounts.ui.config({
   passwordSignupFields: "USERNAME_ONLY"
 });
-
 }
 
 if (Meteor.isServer) {
@@ -71,5 +60,11 @@ Meteor.methods({
       title: title,
       createdAt: new Date()
     });
+  },
+  updateResolution: function(id, checked) {
+    Resolutions.update(id, {$set: {checked: checked}});
+  },
+  deleteResolution: function(id) {
+    Resolutions.remove(id);
   }
 });
